@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/users**
+          filters:
+            - AuthenticationFilter
+
+        - id: video-service
+          uri: lb://video-service
+          predicates:
+            - Path=/video**
+          filters:
+            - AuthenticationFilter
+
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
